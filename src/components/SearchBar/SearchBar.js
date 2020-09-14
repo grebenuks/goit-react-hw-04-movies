@@ -1,43 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
-
 class SearchBar extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
 
   state = {
-    query: '',
+    value: '',
   };
 
   handleChange = e => {
     this.setState({
-      query: e.target.value,
+      value: e.target.value,
     });
   };
 
   handleSubmit = e => {
     e.preventDefault();
     const { onSubmit } = this.props;
-    const { query } = this.state;
-    onSubmit(query);
+    const { value } = this.state;
+    onSubmit(value);
     this.setState({
-      query: '',
+      value: '',
     });
   };
 
   render() {
-    const { query } = this.state;
+    const { value } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          type="text"
-          autoComplete="off"
-          autoFocus
-          name="query"
-          value={query}
+          value={value}
+          onChange={this.handleChange}
           placeholder="Search movies"
           className="SearchInput"
         ></input>

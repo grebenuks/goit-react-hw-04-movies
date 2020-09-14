@@ -114,6 +114,7 @@ h2 {
 .SearchInputBtn {
   font-weight: 600;
 }
-.TrendList {
+.TrendList,
+.ErrorTitle {
   padding: 10px;
 }

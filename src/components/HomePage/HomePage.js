@@ -1,28 +1,47 @@
-import React, { Component, Suspense } from 'react';
-import Axios from 'axios';
-import MovieList from '../MovieList/MovieList';
-
-Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import * as API from '../../Services/API';
 
 class HomePage extends Component {
   state = {
     movies: [],
+    error: null,
   };
 
-  async componentDidMount() {
-    const response = await Axios.get(
-      `/trending/all/day?api_key=${process.env.REACT_APP_API_KEY}`,
-    );
-    this.setState({ movies: response.data.results });
+  componentDidMount() {
+    API.fetchMostPopularMovies()
+      .then(res => this.setState({ movies: res.data.results }))
+      .catch(err =>
+        this.setState({
+          error: err.message,
+        }),
+      );
   }
 
   render() {
+    const { movies, error } = this.state;
+    const { location } = this.props;
+
     return (
       <div className="TrendList">
-        <h2>TranSuspenseding today</h2>
-        <Suspense fallback={<h2>Load...</h2>}>
-          <MovieList movies={this.state.movies} />
-        </Suspense>
+        <h2>Top Movies</h2>
+        {error && <p className="ErrorTitle">Something go wrong</p>}
+        {movies.length > 0 && (
+          <ul>
+            {movies.map(movie => (
+              <li key={movie.id}>
+                <Link
+                  to={{
+                    pathname: `/movies/${movie.id}`,
+                    state: { from: { ...location } },
+                  }}
+                >
+                  {movie.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
