@@ -44,11 +44,7 @@ class MoviesPage extends Component {
     return (
       <>
         <SearchBar onSubmit={this.onSearch} />
-        {error && (
-          <h2 className="ErrorTitle">
-            Please, put the correct name of the movie
-          </h2>
-        )}
+
         {movies.length > 0 && (
           <ul>
             {movies.map(movie => (
@@ -64,6 +60,11 @@ class MoviesPage extends Component {
               </li>
             ))}
           </ul>
+        )}
+        {error && (
+          <h2 className="ErrorTitle">
+            Please, put the correct name of the movie
+          </h2>
         )}
       </>
     );
