@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
-export class ReviewsPage extends Component {
+class ReviewsBox extends Component {
   state = {
     reviewsList: [],
   };
@@ -18,7 +18,7 @@ export class ReviewsPage extends Component {
   render() {
     const { reviewsList } = this.state;
     return (
-      <>
+      <div className="ReviewsInfo">
         <h3>Total reviews: {reviewsList.length}</h3>
         <ul>
           {reviewsList.map(item => (
@@ -28,7 +28,8 @@ export class ReviewsPage extends Component {
           ))}
         </ul>
         {reviewsList.length === 0 && <h2>No reviews yet.</h2>}
-      </>
+      </div>
     );
   }
 }
+export default ReviewsBox;

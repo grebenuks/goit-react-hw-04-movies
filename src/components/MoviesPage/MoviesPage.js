@@ -1,39 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import Axios from 'axios';
-// import { ReviewsPage } from './ReviewsPage/ReviewsPage';
-// import { CastPage } from './CastPage/CastPage';
-// import { Link, useLocation, useHistory } from 'react-router-dom';
+import MovieList from '../MovieList/MovieList';
 
 Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
-export class MoviesPage extends Component {
+class MoviesPage extends Component {
   state = {
+    query: '',
     movies: [],
   };
 
-  async componentDidMount() {
-    const response = await Axios.get(
-      `/search/movie?api_key=${
-        process.env.REACT_APP_API_KEY
-      }&language=en-US&page=1&include_adult=false&query=${''}`,
-    );
-    console.log(response.data.results);
+  handleSubmit = e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    formData.forEach((value, name) => {
+      this.setState({ query: value });
+    });
+  };
 
+  async componentDidUpdate() {
+    const { query } = this.state;
+    const response = await Axios.get(
+      `/search/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1&include_adult=false&query=${query}`,
+    );
     this.setState({ movies: response.data.results });
   }
 
   render() {
     return (
       <>
-        <h2>MoviesPage</h2>
-        <ul>
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              {movie.original_title || movie.original_name}
-            </li>
-          ))}
-        </ul>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            type="text"
+            autoComplete="off"
+            autoFocus
+            name="query"
+            placeholder="Search movies"
+            className="SearchInput"
+          ></input>
+          <button type="submit" className="SearchInputBtn">
+            Search
+          </button>
+        </form>
+        <Suspense fallback={<h2>Load...</h2>}>
+          <MovieList movies={this.state.movies} />
+        </Suspense>
       </>
     );
   }
 }
+
+export default MoviesPage;

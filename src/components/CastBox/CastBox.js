@@ -3,7 +3,7 @@ import Axios from 'axios';
 
 Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
-export class CastPage extends Component {
+class CastBox extends Component {
   state = {
     castList: [],
   };
@@ -13,13 +13,16 @@ export class CastPage extends Component {
     const response = await Axios.get(
       `/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`,
     );
-    this.setState({ castList: response.data.cast });
+    this.setState({
+      castList: response.data.cast,
+      reviewsList: response.data.reviews,
+    });
   }
   render() {
     const { castList } = this.state;
     return (
-      <>
-        <h3>Total cast: {castList.length}</h3>
+      <div className="CastInfo">
+        <h3>Cast</h3>
         <ul>
           {castList.map(item => (
             <li key={item.cast_id}>
@@ -39,7 +42,8 @@ export class CastPage extends Component {
         {castList.length === 0 && (
           <h2>there is currently no information on the cast</h2>
         )}
-      </>
+      </div>
     );
   }
 }
+export default CastBox;

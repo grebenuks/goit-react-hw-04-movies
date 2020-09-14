@@ -1,8 +1,119 @@
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  color: #212121;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h2 {
+  margin-bottom: 0;
+  margin-top: 5px;
+}
+
 .NavLink {
+  text-decoration: none;
   font-size: 20px;
   color: currentColor;
 }
 
 .NavLink--active {
+  color: tomato;
+}
+
+.Link {
+  text-decoration: none;
+}
+
+.Link:hover,
+.NavLink:hover {
   color: blue;
+  text-decoration: underline;
+}
+
+.Header {
+  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+
+.NavigationList {
+  display: flex;
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.NavigationItem {
+  margin-right: 20px;
+}
+
+.GoBackBtn {
+  text-align: right;
+  margin: 5px 10px;
+  width: 85px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-image: url('https://image.flaticon.com/icons/png/512/61/61752.png');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position: 3px;
+}
+
+.GoBackBtnText {
+  font-size: 15px;
+}
+.MovieInfo {
+  display: flex;
+  padding: 10px;
+}
+
+.MovieInfoText {
+  padding: 10px;
+}
+.AddInfo {
+  padding: 10px;
+  outline: solid lightgrey;
+}
+.AddInfoList {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+.CastInfo,
+.ReviewsInfo {
+  padding: 20px;
+  margin: 0;
+}
+.SearchInput {
+  font-size: 15px;
+  outline: none;
+  width: 400px;
+  margin: 15px 0 10px 10px;
+  line-height: 1.3;
+}
+.SearchInputBtn {
+  font-weight: 600;
+}
+.TrendList {
+  padding: 10px;
 }

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
+import MovieList from '../MovieList/MovieList';
 
 Axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 
-export class HomePage extends Component {
+class HomePage extends Component {
   state = {
     movies: [],
   };
@@ -18,18 +18,14 @@ export class HomePage extends Component {
 
   render() {
     return (
-      <>
-        <h2>Tranding today</h2>
-        <ul>
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <Link to={`/movies/${movie.id}`}>
-                {movie.original_title || movie.original_name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </>
+      <div className="TrendList">
+        <h2>TranSuspenseding today</h2>
+        <Suspense fallback={<h2>Load...</h2>}>
+          <MovieList movies={this.state.movies} />
+        </Suspense>
+      </div>
     );
   }
 }
+
+export default HomePage;
